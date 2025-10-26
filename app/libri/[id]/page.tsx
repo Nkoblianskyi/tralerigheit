@@ -13,8 +13,9 @@ export function generateStaticParams() {
   }))
 }
 
-export default function BookPage({ params }: { params: { id: string } }) {
-  const book = books.find((b) => b.id === params.id)
+export default async function BookPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const book = books.find((b) => b.id === id)
 
   if (!book) {
     notFound()
